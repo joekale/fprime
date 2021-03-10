@@ -108,7 +108,6 @@
          <target component = "cmdDisp" port = "compCmdReg" type = "CmdReg" num = "5"/>
     </connection>
     
-    <!--
      <connection name = "MotorControlRReg">
          <source component = "motorControlR" port = "cmdReg" type = "CmdReg" num = "0"/>
          <target component = "cmdDisp" port = "compCmdReg" type = "CmdReg" num = "6"/>
@@ -117,7 +116,6 @@
          <source component = "motorControlL" port = "cmdReg" type = "CmdReg" num = "0"/>
          <target component = "cmdDisp" port = "compCmdReg" type = "CmdReg" num = "7"/>
     </connection>
-    -->
 
     <!-- Command Dispatch Ports - Dispatch port number must match registration port for each component -->
 
@@ -146,7 +144,6 @@
          <target component = "fileDownlink" port = "cmdIn" type = "Cmd" num = "0"/>
     </connection>
     
-    <!--
     <connection name = "MotorControlRDisp">
          <source component = "cmdDisp" port = "compCmdSend" type = "Cmd" num = "6"/>
          <target component = "motorControlR" port = "CmdDisp" type = "Cmd" num = "0"/>
@@ -155,7 +152,6 @@
          <source component = "cmdDisp" port = "compCmdSend" type = "Cmd" num = "7"/>
          <target component = "motorControlL" port = "CmdDisp" type = "Cmd" num = "0"/>
     </connection>
-    -->
    
     <!-- Command Reply Ports - Go to the same response port on the dispatcher -->
 
@@ -183,7 +179,7 @@
         <source component = "fileDownlink" port = "cmdResponseOut" type = "CmdResponse" num = "0"/>
         <target component = "cmdDisp" port = "compCmdStat" type = "CmdResponse" num = "0"/>
     </connection>
-    <!--
+    
     <connection name = "MotorControlRReply">
         <source component = "motorControlR" port = "cmdResponseOut" type = "CmdResponse" num = "0"/>
         <target component = "cmdDisp" port = "compCmdStat" type = "CmdResponse" num = "0"/>
@@ -192,7 +188,6 @@
         <source component = "motorControlL" port = "cmdResponseOut" type = "CmdResponse" num = "0"/>
         <target component = "cmdDisp" port = "compCmdStat" type = "CmdResponse" num = "0"/>
     </connection>
-    -->
 
     <!-- Sequencer Connections - should not conflict with uplink port -->
 
@@ -260,7 +255,7 @@
          <source component = "rateGroup3Comp" port = "Log" type = "Log" num = "0"/>
          <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
     </connection>
-    <!--
+    
     <connection name = "MotorControlRLog">
         <source component = "motorControlR" port = "eventOut" type = "Log" num = "0"/>
         <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
@@ -269,7 +264,7 @@
         <source component = "motorControlL" port = "eventOut" type = "Log" num = "0"/>
         <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
     </connection>
-    -->
+    
    <connection name = "gpioRELog">
        <source component = "gpioRE" port = "Log" type = "Log" num = "0"/>
         <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>

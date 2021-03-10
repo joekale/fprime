@@ -13,7 +13,6 @@
 #include <Fw/Obj/SimpleObjRegistry.hpp>
 #include <Svc/FileUplink/FileUplink.hpp>
 #include <Svc/FileDownlink/FileDownlink.hpp>
-#include <Svc/FileManager/FileManager.hpp>
 #include <Svc/BufferManager/BufferManager.hpp>
 #include <Svc/Health/HealthComponentImpl.hpp>
 
