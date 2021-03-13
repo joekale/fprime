@@ -56,15 +56,19 @@ namespace Tank {
       case MotorDirection::NONE:
         this->motorControl0_out(0, 0);
         this->motorControl1_out(0, 0);
+        break;
       case MotorDirection::FORWARD:
         this->motorControl0_out(0, 1);
         this->motorControl1_out(0, 0);
+        break;
       case MotorDirection::REVERSE:
         this->motorControl0_out(0, 0);
         this->motorControl1_out(0, 1);
+        break;
       case MotorDirection::BRAKE:
         this->motorControl0_out(0, 1);
         this->motorControl1_out(0, 1);
+        break;
       default:
         FW_ASSERT(0,direction.e);
         break;
