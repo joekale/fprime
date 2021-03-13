@@ -605,7 +605,7 @@
     </connection>
     <connection name = "MotorControlR_Pin2">
          <source component = "motorControlR" port = "motorControl1" type = "GpioWrite" num = "0"/>
-         <target component = "gpioR1" port = "gpioWrite" type = "GpioWrite" num = "0"/>
+         <target component = "gpioR2" port = "gpioWrite" type = "GpioWrite" num = "0"/>
     </connection>
     <connection name = "MotorControlL_Enable">
          <source component = "motorControlL" port = "motorEnable" type = "GpioWrite" num = "0"/>
@@ -616,7 +616,7 @@
          <target component = "gpioL1" port = "gpioWrite" type = "GpioWrite" num = "0"/>
     </connection>
     <connection name = "MotorControlL_Pin1">
-         <source component = "motorControlL" port = "motorControl0" type = "GpioWrite" num = "0"/>
+         <source component = "motorControlL" port = "motorControl1" type = "GpioWrite" num = "0"/>
          <target component = "gpioL2" port = "gpioWrite" type = "GpioWrite" num = "0"/>
     </connection>
     
