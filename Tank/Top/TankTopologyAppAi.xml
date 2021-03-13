@@ -20,7 +20,6 @@
     <import_component_type>Svc/ActiveLogger/ActiveLoggerComponentAi.xml</import_component_type>
     <import_component_type>Svc/Time/TimeComponentAi.xml</import_component_type>
     <import_component_type>Svc/RateGroupDriver/RateGroupDriverComponentAi.xml</import_component_type>
-    <import_component_type>Drv/BlockDriver/BlockDriverComponentAi.xml</import_component_type>
     <import_component_type>Svc/FileDownlink/FileDownlinkComponentAi.xml</import_component_type>
     <import_component_type>Svc/PassiveConsoleTextLogger/PassiveTextLoggerComponentAi.xml</import_component_type>
     <import_component_type>Svc/GroundInterface/GroundInterfaceComponentAi.xml</import_component_type>
@@ -46,6 +45,7 @@
     <instance namespace="Svc" name="fatalHandler" type="FatalHandler" base_id="1"  base_id_window="20" />
     <instance namespace="Svc" name="groundIf" type="GroundInterface" base_id="381"  base_id_window="20" />
     <instance namespace="Svc" name="linuxTime" type="Time" base_id="441"  base_id_window="20" />
+    <instance namespace="Svc" name="linuxTimer" type="LinuxTimer" base_id="2000"  base_id_window="20" />
 
     <!-- Communications driver. May be swapped with other comm drivers like UART -->
     <instance namespace="Drv" name="socketIpDriver" type="SocketIpDriver" base_id="601" base_id_window="20" />
@@ -109,11 +109,11 @@
     </connection>
     
      <connection name = "MotorControlRReg">
-         <source component = "motorControlR" port = "cmdReg" type = "CmdReg" num = "0"/>
+         <source component = "motorControlR" port = "CmdReg" type = "CmdReg" num = "0"/>
          <target component = "cmdDisp" port = "compCmdReg" type = "CmdReg" num = "6"/>
     </connection>
      <connection name = "MotorControlLReg">
-         <source component = "motorControlL" port = "cmdReg" type = "CmdReg" num = "0"/>
+         <source component = "motorControlL" port = "CmdReg" type = "CmdReg" num = "0"/>
          <target component = "cmdDisp" port = "compCmdReg" type = "CmdReg" num = "7"/>
     </connection>
 
@@ -181,11 +181,11 @@
     </connection>
     
     <connection name = "MotorControlRReply">
-        <source component = "motorControlR" port = "cmdResponseOut" type = "CmdResponse" num = "0"/>
+        <source component = "motorControlR" port = "CmdStatus" type = "CmdResponse" num = "0"/>
         <target component = "cmdDisp" port = "compCmdStat" type = "CmdResponse" num = "0"/>
     </connection>
     <connection name = "MotorControlLReply">
-        <source component = "motorControlL" port = "cmdResponseOut" type = "CmdResponse" num = "0"/>
+        <source component = "motorControlL" port = "CmdStatus" type = "CmdResponse" num = "0"/>
         <target component = "cmdDisp" port = "compCmdStat" type = "CmdResponse" num = "0"/>
     </connection>
 
@@ -257,11 +257,11 @@
     </connection>
     
     <connection name = "MotorControlRLog">
-        <source component = "motorControlR" port = "eventOut" type = "Log" num = "0"/>
+        <source component = "motorControlR" port = "Log" type = "Log" num = "0"/>
         <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
     </connection>
     <connection name = "MotorControlLLog">
-        <source component = "motorControlL" port = "eventOut" type = "Log" num = "0"/>
+        <source component = "motorControlL" port = "Log" type = "Log" num = "0"/>
         <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
     </connection>
     
@@ -499,8 +499,8 @@
     <!-- Rate Group Connections -->
    
     <!-- Linux Timer Connection -->
-    <connection name = "BlkDrvClock">
-         <source component = "blockDrv" port = "CycleOut" type = "Cycle" num = "0"/>
+    <connection name = "LinuxTimer">
+         <source component = "linuxTimer" port = "CycleOut" type = "Cycle" num = "0"/>
          <target component = "rateGroupDriverComp" port = "CycleIn" type = "Cycle" num = "0"/>
     </connection>
 
@@ -537,10 +537,6 @@
     <connection name = "Rg3Health">
          <source component = "rateGroup3Comp" port = "RateGroupMemberOut" type = "Sched" num = "0"/>
          <target component = "health" port = "Run" type = "Sched" num = "0"/>
-    </connection>
-    <connection name = "Rg3BlkDrv">
-         <source component = "rateGroup3Comp" port = "RateGroupMemberOut" type = "Sched" num = "2"/>
-         <target component = "blockDrv" port = "Sched" type = "Sched" num = "0"/>
     </connection>
     
     

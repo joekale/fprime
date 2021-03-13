@@ -44,9 +44,6 @@ Svc::ActiveRateGroupImpl rateGroup3Comp(FW_OPTIONAL_NAME("RG3"),rg3Context,FW_NU
 // Command Components
 Svc::GroundInterfaceComponentImpl groundIf(FW_OPTIONAL_NAME("GNDIF"));
 
-// Driver Component
-Drv::BlockDriverImpl blockDrv(FW_OPTIONAL_NAME("BDRV"));
-
 #if FW_ENABLE_TEXT_LOGGING
 Svc::ConsoleTextLoggerImpl textLogger(FW_OPTIONAL_NAME("TLOG"));
 #endif
@@ -54,6 +51,7 @@ Svc::ConsoleTextLoggerImpl textLogger(FW_OPTIONAL_NAME("TLOG"));
 Svc::ActiveLoggerImpl eventLogger(FW_OPTIONAL_NAME("ELOG"));
 
 Svc::LinuxTimeImpl linuxTime(FW_OPTIONAL_NAME("LTIME"));
+Svc::LinuxTimerComponentImpl linuxTimer(FW_OPTIONAL_NAME("LINUXTIMER"));
 
 Svc::TlmChanImpl chanTlm(FW_OPTIONAL_NAME("TLM"));
 
@@ -112,9 +110,6 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
     
     rateGroup3Comp.init(10,2);
 
-    // Initialize block driver
-    blockDrv.init(10);
-
 #if FW_ENABLE_TEXT_LOGGING
     textLogger.init();
 #endif
@@ -122,6 +117,8 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
     eventLogger.init(10,0);
     
     linuxTime.init(0);
+
+    linuxTimer.init(0);
 
     chanTlm.init(10,0);
 
@@ -188,8 +185,7 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
         {3,5,getHealthName(chanTlm)}, // 6
         {3,5,getHealthName(prmDb)}, // 7
         {3,5,getHealthName(fileUplink)}, // 8
-        {3,5,getHealthName(fileDownlink)}, // 9
-        {3,5,getHealthName(blockDrv)}, // 11
+        {3,5,getHealthName(fileDownlink)}, // 9]
     };
 
     // register ping table
@@ -200,8 +196,6 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
     rateGroup1Comp.start(0, 120,10 * 1024);
     rateGroup2Comp.start(0, 119,10 * 1024);
     rateGroup3Comp.start(0, 118,10 * 1024);
-    // start driver
-    blockDrv.start(0,140,10*1024);
     // start dispatcher
     cmdDisp.start(0,101,10*1024);
     // start sequencer
@@ -250,7 +244,6 @@ void exitTasks(void) {
     rateGroup1Comp.exit();
     rateGroup2Comp.exit();
     rateGroup3Comp.exit();
-    blockDrv.exit();
     cmdDisp.exit();
     eventLogger.exit();
     chanTlm.exit();
@@ -262,7 +255,6 @@ void exitTasks(void) {
     (void) rateGroup1Comp.ActiveComponentBase::join(NULL);
     (void) rateGroup2Comp.ActiveComponentBase::join(NULL);
     (void) rateGroup3Comp.ActiveComponentBase::join(NULL);
-    (void) blockDrv.ActiveComponentBase::join(NULL);
     (void) cmdDisp.ActiveComponentBase::join(NULL);
     (void) eventLogger.ActiveComponentBase::join(NULL);
     (void) chanTlm.ActiveComponentBase::join(NULL);

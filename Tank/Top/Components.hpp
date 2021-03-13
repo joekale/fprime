@@ -8,6 +8,7 @@
 #include <Svc/PassiveConsoleTextLogger/ConsoleTextLoggerImpl.hpp>
 #include <Svc/ActiveLogger/ActiveLoggerImpl.hpp>
 #include <Svc/LinuxTime/LinuxTimeImpl.hpp>
+#include <Svc/LinuxTimer/LinuxTimerComponentImpl.hpp>
 #include <Svc/TlmChan/TlmChanImpl.hpp>
 #include <Svc/PrmDb/PrmDbImpl.hpp>
 #include <Fw/Obj/SimpleObjRegistry.hpp>
@@ -18,7 +19,6 @@
 
 #include <Svc/AssertFatalAdapter/AssertFatalAdapterComponentImpl.hpp>
 #include <Svc/FatalHandler/FatalHandlerComponentImpl.hpp>
-#include <Drv/BlockDriver/BlockDriverImpl.hpp>
 #include <Drv/SocketIpDriver/SocketIpDriverComponentImpl.hpp>
 #include <Svc/GroundInterface/GroundInterface.hpp>
 #include <Tank/SimpleMotorControl/SimpleMotorControlComponentImpl.hpp>
@@ -46,7 +46,7 @@ extern Svc::AssertFatalAdapterComponentImpl fatalAdapter;
 extern Svc::FatalHandlerComponentImpl fatalHandler;
 extern Svc::HealthImpl health;
 
-extern Drv::BlockDriverImpl blockDrv;
+extern Svc::LinuxTimerComponentImpl linuxTimer;
 
 extern Tank::SimpleMotorControlComponentImpl motorControlR; 
 extern Tank::SimpleMotorControlComponentImpl motorControlL;
