@@ -40,6 +40,9 @@ include("${CMAKE_CURRENT_LIST_DIR}/../cmake/FPrime-Code.cmake")
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MotorControlPorts/")
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/SimpleMotorControl/")
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MotorControlTypes/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/PWMDriverPorts/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/PWMMotorControl/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/LinuxPWMDriver/")
 
 # Add Topology subdirectory
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Top/")

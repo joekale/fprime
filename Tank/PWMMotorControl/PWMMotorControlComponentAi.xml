@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../Autocoders/Python/schema/ISF/component_schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<component name="PWMMotorControl" kind="passive" namespace="Tank">
+    <import_port_type>Drv/GpioDriverPorts/GpioWritePortAi.xml</import_port_type>
+    <import_port_type>Tank/MotorControlPorts/SimpleMotorControlPortAi.xml</import_port_type>
+    <import_port_type>Tank/MotorControlPorts/MotorSpeedControlPortAi.xml</import_port_type>
+    <import_enum_type>Tank/MotorControlTypes/MotorDirectionEnumAi.xml</import_enum_type>
+    <import_port_type>Tank/PWMDriverPorts/PWMDutyCycleWritePortAi.xml</import_port_type>
+    <comment>Passive Component to set Gpio and PWM Pins for PWM Motor Control</comment>
+    <ports>
+        <!-- Output Motor Enable -->
+        <port name="motorSpeed" data_type="Tank::PWMDutyCycleWrite" kind="output" max_number="1">
+            <comment>
+            The Motor Speed Port
+            </comment>
+        </port>
+        <!-- Output Motor Control 0 -->
+        <port name="motorControl0" data_type="Drv::GpioWrite" kind="output" max_number="1">
+            <comment>
+            Motor Control Port 0
+            </comment>
+        </port>
+        <!-- Output Motor Control 0 -->
+        <port name="motorControl1" data_type="Drv::GpioWrite" kind="output" max_number="1">
+            <comment>
+            Motor Control Port 1
+            </comment>
+        </port>
+        <!-- Input Motor Direction -->
+        <port name="MotorDirection" data_type="Tank::SimpleMotorControl" kind="sync_input" max_number="1">
+            <comment>
+            Motor Direction
+            </comment>
+        </port>
+        <!-- Input Motor Enable -->
+        <port name="MotorSpeed" data_type="Tank::MotorSpeed" kind="sync_input" max_number="1">
+            <comment>
+            Motor Speed
+            </comment>
+        </port>
+    </ports>
+    <commands>
+        <command kind="sync" opcode="0" mnemonic="TankMotor_Speed">
+            <comment>
+            Command to Change Speed of a Motor
+            </comment>
+            <args>
+                <arg name="speed" type="F32">
+                    <comment>Speed percent between 0 and 1</comment>
+                </arg>
+            </args> 
+        </command>
+        <command kind="sync" opcode="1" mnemonic="TankMotor_SetDirection">
+            <comment>
+            Command to set a motor direction
+            </comment>    
+            <args>   
+                <arg name="direction" type="Tank::MotorDirection">
+                    <comment>The motor direction</comment>
+                </arg>
+            </args>
+        </command>
+    </commands>
+    <telemetry>
+        <channel id="0" name="TMSC_MotorSpeedChange" data_type="F32">
+            <comment>
+            Motor Speed
+            </comment>
+        </channel>
+        <channel id="1" name="TMSC_Direction" data_type="Tank::MotorDirection">
+            <comment>
+            Motor Direction
+            </comment>
+        </channel>
+    </telemetry>
+    <events>
+        <event id="0" name="TSMC_MotorSpeedChange" severity="DIAGNOSTIC" format_string = "Motor Speed %1.10f" >
+            <comment>
+            Motor speed
+            </comment>
+            <args>
+                <arg name="speed" type="F32">
+                    <comment>Motor Speed</comment>
+                </arg>          
+            </args>
+        </event>
+        <event id="1" name="TSMC_MotorDirectionChange" severity="DIAGNOSTIC" format_string = "New Motor Direction %d" >
+            <comment>
+            Got New Motor Direction
+            </comment>
+            <args>          
+                <arg name="value" type="Tank::MotorDirection">
+                    <comment>Direction value</comment>
+                </arg>         
+            </args>
+        </event>
+     </events>
+</component>
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../Autocoders/Python/schema/ISF/component_schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<component name="LinuxPWMDriver" kind="passive" namespace="Tank">
+    <import_dictionary>Tank/LinuxPWMDriver/Events.xml</import_dictionary>
+    <import_port_type>Tank/PWMDriverPorts/PWMDutyCycleWritePortAi.xml</import_port_type>
+    <ports>
+        <port name="dutyCycleWrite" data_type="Tank::PWMDutyCycleWrite"  kind="sync_input"    max_number="1">
+        </port>
+    </ports>
+    <parameters>
+        <parameter id="0" name="period" data_type="U32" default="10000000" set_opcode="10" save_opcode="11">
+            <comment>
+            The Period to be set on the PWM driver
+            </comment>
+        </parameter>
+    </parameters>
+
+</component>

@@ -1,0 +1,89 @@
+<events>
+    <!-- Open error -->
+    <event id="0" name="PWM_OpenError" severity="WARNING_HI" format_string = "Error opening PWM device %d: %d (%s)" >
+        <comment>
+        Open error
+        </comment>
+        <args>
+            <arg name="pwm" type="I32">
+                <comment>The device</comment>
+            </arg>          
+            <arg name="error" type="I32">
+                <comment>The error code</comment>
+            </arg>          
+            <arg name="msg" type="string" size="40">
+                <comment>The error string</comment>
+            </arg>          
+        </args>
+    </event>
+    <!-- Open error -->
+    <event id="1" name="PWM_ConfigError" severity="WARNING_HI" format_string = "Error configuring PWM device %d: %d" >
+        <comment>
+        GPIO configure error
+        </comment>
+        <args>
+            <arg name="pwm" type="I32">
+                <comment>The device</comment>
+            </arg>          
+            <arg name="error" type="I32">
+                <comment>The error code</comment>
+            </arg>          
+        </args>
+    </event>
+    <event id="2" name="PWM_WriteError" severity="WARNING_HI" format_string = "Error writing PWM device %d: %d"  throttle = "5">
+        <comment>
+        PWM write error
+        </comment>
+        <args>
+            <arg name="pwm" type="I32">
+                <comment>The device</comment>
+            </arg>          
+            <arg name="error" type="I32">
+                <comment>The error code</comment>
+            </arg>          
+        </args>
+    </event>
+    <event id="3" name="PWM_ReadError" severity="WARNING_HI" format_string = "Error reading PWM device %d: %d" throttle = "5">
+        <comment>
+        PWM read error
+        </comment>
+        <args>
+            <arg name="pwm" type="I32">
+                <comment>The device</comment>
+            </arg>          
+            <arg name="error" type="I32">
+                <comment>The error code</comment>
+            </arg>          
+        </args>
+    </event>
+    <event id="4" name="PWM_PortOpened" severity="ACTIVITY_HI" format_string = "PWM Device %d configured" >
+        <comment>
+        PWM opened notification
+        </comment>
+        <args>
+            <arg name="pwm" type="I32">
+                <comment>The device</comment>
+            </arg>          
+        </args>
+    </event>
+    <event id="5" name="PWM_IntStartError" severity="WARNING_HI" format_string = "PWM Device %d interrupt start error" >
+        <comment>
+        PWM interrupt start error notification
+        </comment>
+        <args>
+            <arg name="pwm" type="I32">
+                <comment>The device</comment>
+            </arg>          
+        </args>
+    </event>
+    <event id="6" name="PWM_IntWaitError" severity="WARNING_HI" format_string = "PWM Device %d interrupt wait error" >
+        <comment>
+        PWM interrupt wait error notification
+        </comment>
+        <args>
+            <arg name="pwm" type="I32">
+                <comment>The device</comment>
+            </arg>          
+        </args>
+    </event>
+</events>

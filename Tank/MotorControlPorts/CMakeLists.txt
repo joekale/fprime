@@ -8,6 +8,7 @@
 ####
 set(SOURCE_FILES
   "${CMAKE_CURRENT_LIST_DIR}/MotorEnablePortAi.xml"
+  "${CMAKE_CURRENT_LIST_DIR}/MotorSpeedControlPortAi.xml"
   "${CMAKE_CURRENT_LIST_DIR}/SimpleMotorControlPortAi.xml"
 )
 

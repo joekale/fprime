@@ -21,7 +21,8 @@
 #include <Svc/FatalHandler/FatalHandlerComponentImpl.hpp>
 #include <Drv/SocketIpDriver/SocketIpDriverComponentImpl.hpp>
 #include <Svc/GroundInterface/GroundInterface.hpp>
-#include <Tank/SimpleMotorControl/SimpleMotorControlComponentImpl.hpp>
+#include <Tank/PWMMotorControl/PWMMotorControlComponentImpl.hpp>
+#include <Tank/LinuxPWMDriver/LinuxPWMDriverComponentImpl.hpp>
 #include <Drv/LinuxGpioDriver/LinuxGpioDriverComponentImpl.hpp>
 
 void constructTankArchitecture(void);
@@ -48,12 +49,12 @@ extern Svc::HealthImpl health;
 
 extern Svc::LinuxTimerComponentImpl linuxTimer;
 
-extern Tank::SimpleMotorControlComponentImpl motorControlR; 
-extern Tank::SimpleMotorControlComponentImpl motorControlL;
-extern Drv::LinuxGpioDriverComponentImpl gpioRE;
+extern Tank::PWMMotorControlComponentImpl motorControlR; 
+extern Tank::PWMMotorControlComponentImpl motorControlL;
+extern Tank::LinuxPWMDriverComponentImpl pwmR;
 extern Drv::LinuxGpioDriverComponentImpl gpioR1; 
 extern Drv::LinuxGpioDriverComponentImpl gpioR2; 
-extern Drv::LinuxGpioDriverComponentImpl gpioLE; 
+extern Tank::LinuxPWMDriverComponentImpl pwmL;
 extern Drv::LinuxGpioDriverComponentImpl gpioL1; 
 extern Drv::LinuxGpioDriverComponentImpl gpioL2;
 extern Drv::SocketIpDriverComponentImpl socketIpDriver;

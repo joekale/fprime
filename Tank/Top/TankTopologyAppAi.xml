@@ -25,7 +25,8 @@
     <import_component_type>Svc/GroundInterface/GroundInterfaceComponentAi.xml</import_component_type>
     <import_component_type>Svc/LinuxTimer/LinuxTimerComponentAi.xml</import_component_type>
     <import_component_type>Drv/SocketIpDriver/SocketIpDriverComponentAi.xml</import_component_type>
-    <import_component_type>Tank/SimpleMotorControl/SimpleMotorControlComponentAi.xml</import_component_type>
+    <import_component_type>Tank/PWMMotorControl/PWMMotorControlComponentAi.xml</import_component_type>
+    <import_component_type>Tank/LinuxPWMDriver/LinuxPWMDriverComponentAi.xml</import_component_type>
     <import_component_type>Drv/LinuxGpioDriver/LinuxGpioDriverComponentAi.xml</import_component_type>
 
     <!-- Declare component instances - must match names in Components.hpp -->
@@ -58,12 +59,12 @@
     <instance namespace="Svc" name="rateGroup3Comp" type="ActiveRateGroup" base_id="241"  base_id_window="20" />
 
     <!-- Tank Components -->
-    <instance namespace="Tank" name="motorControlR" type="SimpleMotorControl" base_id="1000"  base_id_window="100" />
-    <instance namespace="Tank" name="motorControlL" type="SimpleMotorControl" base_id="1100"  base_id_window="100" />
-    <instance namespace="Drv" name="gpioRE" type="LinuxGpioDriver" base_id="1200"  base_id_window="100" />
+    <instance namespace="Tank" name="motorControlR" type="PWMMotorControl" base_id="1000"  base_id_window="100" />
+    <instance namespace="Tank" name="motorControlL" type="PWMMotorControl" base_id="1100"  base_id_window="100" />
+    <instance namespace="Tank" name="pwmR" type="LinuxPWMDriver" base_id="1200"  base_id_window="100" />
     <instance namespace="Drv" name="gpioR1" type="LinuxGpioDriver" base_id="1300"  base_id_window="100" />
     <instance namespace="Drv" name="gpioR2" type="LinuxGpioDriver" base_id="1400"  base_id_window="100" />
-    <instance namespace="Drv" name="gpioLE" type="LinuxGpioDriver" base_id="1500"  base_id_window="100" />
+    <instance namespace="Tank" name="pwmL" type="LinuxPWMDriver" base_id="1500"  base_id_window="100" />
     <instance namespace="Drv" name="gpioL1" type="LinuxGpioDriver" base_id="1600"  base_id_window="100" />
     <instance namespace="Drv" name="gpioL2" type="LinuxGpioDriver" base_id="1700"  base_id_window="100" />
 
@@ -265,8 +266,8 @@
         <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
     </connection>
     
-   <connection name = "gpioRELog">
-       <source component = "gpioRE" port = "Log" type = "Log" num = "0"/>
+   <connection name = "pwmRLog">
+       <source component = "pwmR" port = "Log" type = "Log" num = "0"/>
         <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
    </connection>
    <connection name = "gpioR1Log">
@@ -277,8 +278,8 @@
        <source component = "gpioR2" port = "Log" type = "Log" num = "0"/>
         <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
    </connection>
-   <connection name = "gpioLELog">
-       <source component = "gpioLE" port = "Log" type = "Log" num = "0"/>
+   <connection name = "pwmLLog">
+       <source component = "pwmL" port = "Log" type = "Log" num = "0"/>
         <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
    </connection>
    <connection name = "gpioL1Log">
@@ -340,8 +341,8 @@
         <source component = "motorControlL" port = "LogText" type = "LogText" num = "0"/>
         <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
     </connection>
-   <connection name = "gpioRETextLog">
-       <source component = "gpioRE" port = "LogText" type = "LogText" num = "0"/>
+   <connection name = "pwmRTextLog">
+       <source component = "pwmR" port = "LogText" type = "LogText" num = "0"/>
         <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
    </connection>
    <connection name = "gpioR1TextLog">
@@ -352,8 +353,8 @@
        <source component = "gpioR2" port = "LogText" type = "LogText" num = "0"/>
         <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
    </connection>
-   <connection name = "gpioLETextLog">
-       <source component = "gpioLE" port = "LogText" type = "LogText" num = "0"/>
+   <connection name = "pwmLTextLog">
+       <source component = "pwmL" port = "LogText" type = "LogText" num = "0"/>
         <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
    </connection>
    <connection name = "gpioL1TextLog">
@@ -471,8 +472,8 @@
         <source component = "groundIf" port = "Time" type = "Time" num = "0"/>
         <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
     </connection>
-   <connection name = "GpioRETime">
-       <source component = "gpioRE" port = "Time" type = "Time" num = "0"/>
+   <connection name = "PWMRTime">
+       <source component = "pwmR" port = "Time" type = "Time" num = "0"/>
         <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
    </connection>
    <connection name = "GpioR1Time">
@@ -483,8 +484,8 @@
        <source component = "gpioR2" port = "Time" type = "Time" num = "0"/>
         <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
    </connection>
-   <connection name = "GpioLETime">
-       <source component = "gpioLE" port = "Time" type = "Time" num = "0"/>
+   <connection name = "PWMLTime">
+       <source component = "pwmL" port = "Time" type = "Time" num = "0"/>
         <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
    </connection>
    <connection name = "GpioL1Time">
@@ -595,9 +596,9 @@
     
     <!-- Tank App Connections -->
     
-    <connection name = "MotorControlR_Enable">
-         <source component = "motorControlR" port = "motorEnable" type = "GpioWrite" num = "0"/>
-         <target component = "gpioRE" port = "gpioWrite" type = "GpioWrite" num = "0"/>
+    <connection name = "MotorControlR_Speed">
+         <source component = "motorControlR" port = "motorSpeed" type = "DutyCycleWrite" num = "0"/>
+         <target component = "pwmR" port = "dutyCycleWrite" type = "DutyCycleWrite" num = "0"/>
     </connection>
     <connection name = "MotorControlR_Pin1">
          <source component = "motorControlR" port = "motorControl0" type = "GpioWrite" num = "0"/>
@@ -607,9 +608,9 @@
          <source component = "motorControlR" port = "motorControl1" type = "GpioWrite" num = "0"/>
          <target component = "gpioR2" port = "gpioWrite" type = "GpioWrite" num = "0"/>
     </connection>
-    <connection name = "MotorControlL_Enable">
-         <source component = "motorControlL" port = "motorEnable" type = "GpioWrite" num = "0"/>
-         <target component = "gpioLE" port = "gpioWrite" type = "GpioWrite" num = "0"/>
+    <connection name = "MotorControlL_Speed">
+         <source component = "motorControlL" port = "motorSpeed" type = "DutyCycleWrite" num = "0"/>
+         <target component = "pwmL" port = "dutyCycleWrite" type = "PWMDutyCycleWrite" num = "0"/>
     </connection>
     <connection name = "MotorControlL_Pin1">
          <source component = "motorControlL" port = "motorControl0" type = "GpioWrite" num = "0"/>

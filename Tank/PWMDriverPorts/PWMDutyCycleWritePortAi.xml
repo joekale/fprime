@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../Autocoders/Python/schema/ISF/interface_schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<interface name="PWMDutyCycleWrite" namespace="Tank">
+    <args>
+        <arg name="duty_cycle" type="F32" pass_by="value">
+            <comment>percent of period to set duty cycle between 0 and 1</comment>
+        </arg>
+    </args>
+</interface>

@@ -73,12 +73,12 @@ Svc::BufferManager fileUplinkBufferManager(FW_OPTIONAL_NAME("fileUplinkBufferMan
 Svc::HealthImpl health(FW_OPTIONAL_NAME("health"));
 
 // Tank Implementation Components
-Tank::SimpleMotorControlComponentImpl motorControlR(FW_OPTIONAL_NAME("motorControlR"));
-Tank::SimpleMotorControlComponentImpl motorControlL(FW_OPTIONAL_NAME("motorControlL"));
-Drv::LinuxGpioDriverComponentImpl gpioRE(FW_OPTIONAL_NAME("gpioRE"));
+Tank::PWMMotorControlComponentImpl motorControlR(FW_OPTIONAL_NAME("motorControlR"));
+Tank::PWMMotorControlComponentImpl motorControlL(FW_OPTIONAL_NAME("motorControlL"));
+Tank::LinuxPWMDriverComponentImpl pwmR(FW_OPTIONAL_NAME("pwmR"));
 Drv::LinuxGpioDriverComponentImpl gpioR1(FW_OPTIONAL_NAME("gpioR1"));
 Drv::LinuxGpioDriverComponentImpl gpioR2(FW_OPTIONAL_NAME("gpioR2"));
-Drv::LinuxGpioDriverComponentImpl gpioLE(FW_OPTIONAL_NAME("gpioLE"));
+Tank::LinuxPWMDriverComponentImpl pwmL(FW_OPTIONAL_NAME("pwmL"));
 Drv::LinuxGpioDriverComponentImpl gpioL1(FW_OPTIONAL_NAME("gpioL1"));
 Drv::LinuxGpioDriverComponentImpl gpioL2(FW_OPTIONAL_NAME("gpioL2"));
 
@@ -142,10 +142,10 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
 
     motorControlR.init(0);
     motorControlL.init(0);
-    gpioRE.init(0);
+    pwmR.init(0);
     gpioR1.init(0);
     gpioR2.init(0);
-    gpioLE.init(0);
+    pwmL.init(0);
     gpioL1.init(0);
     gpioL2.init(0);
     // Connect rate groups to rate group driver
@@ -213,7 +213,7 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
         socketIpDriver.startSocketTask(100, 10 * 1024, hostname, port_number);
     }
 
-    if (not gpioRE.open(17,Drv::LinuxGpioDriverComponentImpl::GPIO_OUT)) {
+    if (not pwmR.open(0,Tank::LinuxPWMDriverComponentImpl::PWM_NORMAL)) {
         return true;
     }
 
@@ -225,7 +225,7 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
         return true;
     }
 
-    if (not gpioLE.open(23,Drv::LinuxGpioDriverComponentImpl::GPIO_OUT)) {
+    if (not pwmL.open(1,Tank::LinuxPWMDriverComponentImpl::PWM_NORMAL)) {
         return true;
     }
 
