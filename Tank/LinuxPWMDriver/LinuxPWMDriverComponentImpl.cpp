@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <poll.h>
+#include <math.h>
 
 //#define DEBUG_PRINT(x,...) printf(x,##__VA_ARGS__); fflush(stdout)
 #define DEBUG_PRINT(x,...)
@@ -137,16 +138,17 @@ namespace Tank {
 
         fd = open(buf, O_WRONLY);
         if (fd < 0) {
-            DEBUG_PRINT("pwm/polarity error!\n");
+            DEBUG_PRINT("pwm/polarity open error!\n");
             return -1;
         }
 
-        const char *dir = polarity ? "normal" : "inverse";
+        // 0 is normal 1 is inverse
+        const char *dir = !polarity ? "normal" : "inverse";
         len = strlen(dir);
 
         if (write(fd, dir, len) != len) {
             (void) close(fd);
-            DEBUG_PRINT("pwm/polarity error!\n");
+            DEBUG_PRINT("pwm/polarity set error!\n");
             return -1;
         }
 
@@ -184,7 +186,7 @@ namespace Tank {
     }
 
     /****************************************************************
-     * gpio_set_value
+     * gpio_set_value(polarity == PWMPolarity::PWM_NORMAL)
      ****************************************************************/
     int pwm_set_duty_cycle(int fd, unsigned int duty_cycle)
     {
@@ -313,13 +315,14 @@ namespace Tank {
           this->log_WARNING_HI_PWM_OpenError(pwm,stat,arg);
           return false;
       }
-      this->polarity = polarity;
-      stat = pwm_set_polarity(pwm, this->polarity);
-      if (-1 == stat) {
-          Fw::LogStringArg arg = strerror(errno);
-          this->log_WARNING_HI_PWM_OpenError(pwm,stat,arg);
-          return false;
-      }
+      //TODO: way to determine if polarity can be changed?
+    //   this->polarity = polarity;
+    //   stat = pwm_set_polarity(pwm, this->polarity);
+    //   if (-1 == stat) {
+    //       Fw::LogStringArg arg = strerror(errno);
+    //       this->log_WARNING_HI_PWM_OpenError(pwm,stat,arg);
+    //       return false;
+    //   }
       stat = pwm_set_period(pwm, period);
       if (-1 == stat) {
           Fw::LogStringArg arg = strerror(errno);
@@ -363,8 +366,9 @@ namespace Tank {
         F32 duty_cycle
     )
   {
-    FW_ASSERT((duty_cycle < 0 || duty_cycle > 1), duty_cycle);
-    pwm_set_duty_cycle(m_fd, period);
+    // TODO: check input and cap setting
+    F32 dc = duty_cycle * period;
+    pwm_set_duty_cycle(m_fd, static_cast<U32>(dc));
   }
 
 } // end namespace Tank
